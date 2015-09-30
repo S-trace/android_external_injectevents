@@ -2,6 +2,7 @@
 #include <fcntl.h> 
 #include <poll.h>
 #include <linux/input.h>
+#include <sys/stat.h>
 #include "uinput.h"
 
 const char *EV_PREFIX  = "/dev/input/";
@@ -22,9 +23,10 @@ int
 init()
 {
 	char buffer[256];
-	int i, fd;
+	unsigned int i;
+	int fd;
 
-	out_fd = open(OUT_FN, O_WRONLY | O_CREAT | O_TRUNC);
+	out_fd = open(OUT_FN, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
 	if(out_fd < 0) {
 		printf("Couldn't open output file\n");
 		return 1;
@@ -54,7 +56,8 @@ init()
 int
 record()
 {
-	int i, numread;
+	int numread;
+	unsigned int i;
 	struct input_event event;
 
 	while(1) {
@@ -95,6 +98,7 @@ int main()
 	}
 
 	record();
+	return 0;
 }
 
 

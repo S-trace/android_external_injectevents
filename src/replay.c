@@ -23,7 +23,7 @@ int
 init()
 {
 	char buf[256];
-	int i;
+	unsigned int i;
 	struct stat statinfo;
 
 	for(i = 0; i < NUM_DEVICES; i++) {
@@ -112,5 +112,6 @@ int main(void)
 		printf("replay failed\n");
 		return 2;
 	}
+	return 0;
 }
 
