@@ -11,8 +11,10 @@
 const char *EV_PREFIX  = "/dev/input/";
 const char *IN_FN = "/sdcard/events";
 
-/* NB event4 is the compass -- not required for tests. */
-char *ev_devices[] = {"event0", "event1", "event2", "event3" /*, "event4" */};
+// event0 - touch
+// event1 - vol-, power
+// event2 - vol+, power
+char *ev_devices[] = {"event0", "event1", "event2" /*, "event3", "event4" */ };
 #define NUM_DEVICES (sizeof(ev_devices) / sizeof(char *))
 
 int out_fds[NUM_DEVICES];
@@ -48,9 +50,10 @@ init()
 	}
 
 	// Hacky ioctl init
-	ioctl (out_fds[3], UI_SET_EVBIT, EV_KEY);
-	ioctl (out_fds[3], UI_SET_EVBIT, EV_REP);
-	ioctl (out_fds[1], UI_SET_EVBIT, EV_ABS);
+	ioctl (out_fds[0], UI_SET_EVBIT, EV_ABS);
+	ioctl (out_fds[1], UI_SET_EVBIT, EV_KEY);
+	ioctl (out_fds[2], UI_SET_EVBIT, EV_KEY);
+// 	ioctl (out_fds[3], UI_SET_EVBIT, EV_REP);
 
 	return 0;
 }

@@ -9,8 +9,10 @@ const char *EV_PREFIX  = "/dev/input/";
 const char *OUT_FN = "/sdcard/events";
 /* const char *OUT_PREFIX = "/sdcard/"; */
 
-/* NB event4 is the compass -- not required for tests. */
-char *ev_devices[] = {"event0", "event1", "event2", "event3" /*, "event4" */};
+// event0 - touch
+// event1 - vol-, power
+// event2 - vol+, power
+char *ev_devices[] = {"event0", "event1", "event2" /*, "event3", "event4" */ };
 #define NUM_DEVICES (sizeof(ev_devices) / sizeof(char *))
 
 struct pollfd in_fds[NUM_DEVICES];
